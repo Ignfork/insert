@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Insert ($INSERT) · Find your entry before you insert</title>
+<meta name="description" content="Insert is a free pump.fun entry toolkit: scan any Solana coin for a live Insert Score, run real bonding-curve math, plan exits and prep your launch. $INSERT." />
+<meta name="theme-color" content="#0e0826" />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+<link rel="apple-touch-icon" href="logo.png" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Insert ($INSERT) · Find your entry before you insert" />
+<meta property="og:description" content="Live entry scanner, bonding-curve calculator, exit planner and launch kit for pump.fun coins." />
+<meta property="og:image" content="og.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Insert ($INSERT)" />
+<meta name="twitter:description" content="Insert coin. Read the curve. Pick your entry." />
+<meta name="twitter:image" content="og.png" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="crt" aria-hidden="true"></div>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="top">
+  <div class="nav-inner">
+    <a class="brand" href="#top" aria-label="Insert home">
+      <img src="logo.svg" alt="" width="38" height="38" />
+      <span class="brand-word">INSERT</span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#scan">Scanner</a>
+      <a href="#curve">Curve</a>
+      <a href="#exit">Exits</a>
+      <a href="#launch">Launch Kit</a>
+      <a href="#check">Checklist</a>
+      <a href="#watch">Watchlist</a>
+      <a href="#token">$INSERT</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="icon-btn js-x" href="https://x.com/UseInsertSol" target="_blank" rel="noopener" aria-label="Insert on X">
+        <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M18.9 2H22l-6.8 7.8L23 22h-6.2l-4.8-6.3L6.4 22H3.3l7.3-8.3L1 2h6.3l4.4 5.8L18.9 2Zm-1.1 18h1.7L6.3 3.9H4.5L17.8 20Z"/></svg>
+      </a>
+      <a class="btn btn-buy js-buy" href="https://pump.fun" target="_blank" rel="noopener"><span class="px">BUY</span> $INSERT</a>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <canvas class="hero-scene" id="heroScene" aria-label="Pixel-art arcade with Insert cabinets. Click the yellow cabinet to insert a coin."></canvas>
+  <div class="hero-shade" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <div class="chip-row">
+        <span class="live-chip"><i></i>LIVE ON SOLANA</span>
+        <span class="soft-chip">pump.fun entry toolkit</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="t1">FIND YOUR</span>
+        <span class="t1">ENTRY BEFORE</span>
+        <span class="t2">YOU <b>INSERT</b><i class="caret">_</i></span>
+      </h1>
+      <p class="lede">Paste any pump.fun coin and Insert reads it live: buy pressure, momentum, curve progress and how much SOL is left until graduation. You get one score and a straight answer before you put a coin in.</p>
+      <div class="hero-actions">
+        <a class="btn btn-xl btn-pink" href="#scan"><span class="px">▶ PRESS START</span></a>
+        <button class="btn btn-xl btn-ghost" type="button" id="heroInsert"><span class="px">INSERT COIN</span></button>
+      </div>
+      <div class="ca-box" id="caBox">
+        <span class="ca-label px">CA</span>
+        <a class="ca-value" id="caValue" href="https://x.com/UseInsertSol" target="_blank" rel="noopener">CA will be posted on X · @UseInsertSol ↗</a>
+        <button class="ca-copy" id="caCopy" type="button" hidden>COPY</button>
+      </div>
+    </div>
+  </div>
+  <div class="scoreboard" aria-label="Your session">
+    <div class="sb-cell"><span>SCANS</span><b id="statScans" class="c-lime">0</b></div>
+    <div class="sb-cell"><span>HI-SCORE</span><b id="statHi" class="c-yellow">000</b></div>
+    <div class="sb-cell"><span>WATCHING</span><b id="statWatch" class="c-purple">0</b></div>
+    <div class="sb-cell"><span>CREDITS</span><b id="statCredits" class="c-pink">00</b></div>
+    <div class="sb-cell sb-hint"><span>TIP</span><b class="c-cyan">PRESS [INS] TO SCAN</b></div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>INSERT COIN</span><i>✦</i><span>READ THE CURVE</span><i>✦</i><span>PICK YOUR ENTRY</span><i>✦</i><span>PLAN THE EXIT</span><i>✦</i><span>$INSERT</span><i>✦</i><span>NO WALLET CONNECT</span><i>✦</i><span>LIVE DATA ONLY</span><i>✦</i>
+    <span>INSERT COIN</span><i>✦</i><span>READ THE CURVE</span><i>✦</i><span>PICK YOUR ENTRY</span><i>✦</i><span>PLAN THE EXIT</span><i>✦</i><span>$INSERT</span><i>✦</i><span>NO WALLET CONNECT</span><i>✦</i><span>LIVE DATA ONLY</span><i>✦</i>
+  </div>
+</div>
+
+
+<!-- ============ STATS STRIP ============ -->
+<section class="stats-strip">
+  <div class="wrap stats-grid">
+    <div class="stat reveal" style="--acc:var(--cyan)"><b class="px">8</b><span>scored factors in every Insert Score</span></div>
+    <div class="stat reveal" style="--acc:var(--lime)"><b class="px">85</b><span>SOL to graduation, modelled with pump.fun's curve math</span></div>
+    <div class="stat reveal" style="--acc:var(--pink)"><b class="px">0</b><span>wallet connects, signatures or sign-ups needed</span></div>
+    <div class="stat reveal" style="--acc:var(--yellow)"><b class="px">100%</b><span>live data. Nothing on the board is simulated</span></div>
+  </div>
+</section>
+
+<!-- ============ BENTO ============ -->
+<section class="section bento-sec">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="kicker">SELECT YOUR TOOL</span>
+      <h2 class="px-h">SIX MACHINES. ONE COIN SLOT.</h2>
+      <p>Everything you check before you buy a pump.fun coin, in one place. It's free to play, needs no wallet, and every number comes from a live lookup.</p>
+    </div>
+    <div class="bento">
+      <a class="b-card b-hero reveal" href="#scan" style="--acc:var(--cyan)">
+        <div class="b-copy">
+          <span class="b-ico px">$</span>
+          <span class="b-num">01</span>
+          <h3>Entry Scanner</h3>
+          <p>Paste a CA and get a live Insert Score from eight scored factors, plus the coin's position on the bonding curve.</p>
+          <span class="b-go px">PLAY ▸</span>
+        </div>
+        <div class="b-demo" aria-hidden="true">
+          <div class="dial"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="48" class="d-bg"/><circle cx="60" cy="60" r="48" class="d-fg"/></svg><b class="px">??</b><span>INSERT A COIN</span></div>
+          <div class="demo-rows">
+            <span><i style="--w:72%;--c:var(--lime)"></i>Buy pressure</span>
+            <span><i style="--w:58%;--c:var(--yellow)"></i>Momentum</span>
+            <span><i style="--w:84%;--c:var(--cyan)"></i>Activity</span>
+            <span><i style="--w:40%;--c:var(--pink)"></i>Curve depth</span>
+          </div>
+        </div>
+      </a>
+      <a class="b-card reveal" href="#curve" style="--acc:var(--lime)"><span class="b-ico px">↗</span><span class="b-num">02</span><h3>Curve Calculator</h3><p>Pump.fun's real curve math: tokens out, price impact and value at graduation.</p><span class="b-go px">PLAY ▸</span></a>
+      <a class="b-card reveal" href="#exit" style="--acc:var(--pink)"><span class="b-ico px">%</span><span class="b-num">03</span><h3>Exit Planner</h3><p>Take-profit ladder, stop-loss and the exact level where you're playing with house money.</p><span class="b-go px">PLAY ▸</span></a>
+      <a class="b-card reveal" href="#launch" style="--acc:var(--yellow)"><span class="b-ico px">▶</span><span class="b-num">04</span><h3>Launch Kit</h3><p>Check your name, ticker, image and dev buy, then preview your pump.fun card.</p><span class="b-go px">PLAY ▸</span></a>
+      <a class="b-card reveal" href="#check" style="--acc:var(--orange)"><span class="b-ico px">✓</span><span class="b-num">05</span><h3>Pre-Insert Checklist</h3><p>Holders, bundles, dev wallet and RugCheck, with one-click research links.</p><span class="b-go px">PLAY ▸</span></a>
+      <a class="b-card reveal" href="#watch" style="--acc:var(--purple)"><span class="b-ico px">★</span><span class="b-num">06</span><h3>Watchlist</h3><p>Star coins, re-scan later and see how the score moved since you added them.</p><span class="b-go px">PLAY ▸</span></a>
+    </div>
+    <div class="pipeline reveal">
+      <div class="pipe-head"><span class="kicker">UNDER THE HOOD</span><h3>How a scan works</h3></div>
+      <div class="pipe-row">
+        <div class="pipe-node" style="--acc:var(--cyan)"><span class="pn-ico px">&gt;_</span><b>You paste a CA</b><small>A contract address, pump.fun link or DexScreener link. Insert pulls out the mint.</small></div>
+        <div class="pipe-link" aria-hidden="true"><i></i></div>
+        <div class="pipe-node" style="--acc:var(--purple)"><span class="pn-ico px">@</span><b>Live pair lookup</b><small>Your browser asks DexScreener's public API directly. There's no middleman server.</small></div>
+        <div class="pipe-link" aria-hidden="true"><i></i></div>
+        <div class="pipe-node" style="--acc:var(--lime)"><span class="pn-ico px">#</span><b>8 factors scored</b><small>Pressure, momentum, activity, depth, turnover, socials, age and timing, each weighted.</small></div>
+        <div class="pipe-link" aria-hidden="true"><i></i></div>
+        <div class="pipe-node" style="--acc:var(--yellow)"><span class="pn-ico px">★</span><b>Score + verdict</b><small>INSERT, WAIT or GAME OVER, plus curve progress and research links.</small></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ SCANNER ============ -->
+<section class="section tool-sec" id="scan" style="--acc:var(--cyan)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="t-badge px">$</span>
+      <div>
+        <span class="kicker">TOOL 01 · LIVE</span>
+        <h2 class="px-h">ENTRY SCANNER</h2>
+        <p>Live data from the DexScreener public API, scored in your browser.</p>
+      </div>
+    </div>
+
+    <div class="panel reveal">
+      <div class="panel-bar"><span class="leds"><i></i><i></i><i></i></span><span class="panel-title px">SCAN.EXE</span><span class="panel-status px" id="scanStatus">IDLE</span></div>
+      <div class="panel-body">
+        <form class="scan-form" id="scanForm" autocomplete="off">
+          <div class="scan-input">
+            <span class="prompt px">&gt;</span>
+            <input id="scanInput" type="text" spellcheck="false" placeholder="Paste a CA, pump.fun link or DexScreener link…" aria-label="Contract address" />
+          </div>
+          <button class="btn btn-xl btn-cyan" type="submit" id="scanBtn"><span class="px">INSERT ▸</span></button>
+        </form>
+        <div class="recent" id="recent"></div>
+
+        <div class="scan-empty" id="scanEmpty">
+          <div class="empty-coin"><span class="px">$</span></div>
+          <div>
+            <p class="px empty-t">AWAITING COIN…</p>
+            <p class="empty-p">Every number on this board comes from a live lookup. Nothing is simulated, so the board stays empty until you scan a real coin.</p>
+          </div>
+        </div>
+
+        <div class="scan-result" id="scanResult" hidden>
+          <div class="res-head">
+            <div class="res-token">
+              <div class="res-img" id="resImg"></div>
+              <div>
+                <div class="res-name"><span id="resName">—</span> <span class="res-sym" id="resSym">—</span></div>
+                <div class="res-meta">
+                  <code id="resCa">—</code>
+                  <button class="mini" id="resCopy" type="button">copy</button>
+                  <span class="chip" id="resDex">—</span>
+                  <span class="chip chip-dim" id="resAge">—</span>
+                </div>
+              </div>
+            </div>
+            <div class="res-actions">
+              <button class="btn btn-sm btn-purple" id="resWatch" type="button">★ Watch</button>
+              <button class="btn btn-sm btn-lime" id="resCurve" type="button">→ Curve</button>
+              <button class="btn btn-sm btn-pink" id="resExit" type="button">→ Exits</button>
+              <button class="btn btn-sm btn-yellow" id="resShare" type="button">⬇ Share card</button>
+            </div>
+          </div>
+
+          <div class="res-grid">
+            <div class="score-box">
+              <svg class="ring" viewBox="0 0 120 120" aria-hidden="true">
+                <circle cx="60" cy="60" r="50" class="ring-bg" />
+                <circle cx="60" cy="60" r="50" class="ring-fg" id="ringFg" />
+              </svg>
+              <div class="score-num"><b id="scoreNum" class="px">0</b><span>INSERT SCORE</span></div>
+              <div class="verdict px" id="verdict">—</div>
+              <p class="verdict-note" id="verdictNote"></p>
+            </div>
+            <div class="stat-tiles" id="statTiles"></div>
+          </div>
+
+          <div class="curve-progress" id="curveProgress" hidden>
+            <div class="cp-head"><span class="px">BONDING CURVE</span><b class="px" id="cpPct">0%</b></div>
+            <div class="cp-track"><div class="cp-fill" id="cpFill"></div><span class="cp-flag px">GRAD</span></div>
+            <div class="cp-foot"><span id="cpRaised">0 SOL in curve</span><span id="cpLeft">85 SOL to graduate</span></div>
+          </div>
+
+          <div class="factors">
+            <h4 class="px">SCORE BREAKDOWN</h4>
+            <div id="factorList" class="factor-list"></div>
+          </div>
+
+          <div class="quick-links" id="quickLinks"></div>
+          <p class="fine">The Insert Score is a heuristic built from public pair data. It's not a prediction and not financial advice. It can't see holder concentration, bundles or dev wallets, so use the checklist and links for those.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CURVE ============ -->
+<section class="section tool-sec alt" id="curve" style="--acc:var(--lime)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="t-badge px">↗</span>
+      <div>
+        <span class="kicker">TOOL 02 · MATH</span>
+        <h2 class="px-h">BONDING CURVE CALCULATOR</h2>
+        <p>Pump.fun's constant-product curve: 1B supply, 793.1M sold on the curve, and graduation at about 85 SOL. Pick where you enter and how much you insert.</p>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="panel reveal">
+        <div class="panel-bar"><span class="leds"><i></i><i></i><i></i></span><span class="panel-title px">CURVE.SYS</span><span class="panel-status px">INPUT</span></div>
+        <div class="panel-body form-grid">
+          <label class="field span2">
+            <span>Curve position at entry · <b id="cvPosLbl">0.00 SOL in curve (0.0%)</b></span>
+            <input type="range" id="cvPos" min="0" max="85" step="0.01" value="0" />
+            <div class="range-scale"><span>Fresh launch</span><span>Halfway</span><span>Graduation</span></div>
+          </label>
+          <label class="field"><span>SOL to insert</span><input type="number" id="cvSol" min="0" step="0.01" value="1" /></label>
+          <label class="field"><span>Trade fee %</span><input type="number" id="cvFee" min="0" max="10" step="0.05" value="1.25" /></label>
+          <label class="field"><span>SOL price (USD)</span><input type="number" id="cvSolUsd" min="0" step="0.01" placeholder="loading…" /></label>
+          <label class="field"><span>Slippage tolerance %</span><input type="number" id="cvSlip" min="0" max="100" step="0.5" value="10" /></label>
+          <div class="chips span2" id="cvPresets">
+            <button type="button" data-sol="0.1">0.1 SOL</button>
+            <button type="button" data-sol="0.5">0.5 SOL</button>
+            <button type="button" data-sol="1" class="on">1 SOL</button>
+            <button type="button" data-sol="2.5">2.5 SOL</button>
+            <button type="button" data-sol="5">5 SOL</button>
+            <button type="button" data-sol="10">10 SOL</button>
+          </div>
+          <p class="fine span2" id="cvSolNote">SOL price is fetched live and you can edit it. Fees change on pump.fun, so set the % you actually see.</p>
+        </div>
+      </div>
+
+      <div class="panel reveal">
+        <div class="panel-bar"><span class="leds"><i></i><i></i><i></i></span><span class="panel-title px">OUTPUT</span><span class="panel-status px" id="cvGradFlag">ON CURVE</span></div>
+        <div class="panel-body">
+          <div class="out-grid">
+            <div class="out big"><span>Tokens you get</span><b id="cvTokens">0</b><small id="cvSupply">0% of supply</small></div>
+            <div class="out"><span>Entry market cap</span><b id="cvMcBefore">0</b><small id="cvMcBeforeSol">0 SOL</small></div>
+            <div class="out"><span>MC after your buy</span><b id="cvMcAfter">0</b><small id="cvMcAfterSol">0 SOL</small></div>
+            <div class="out"><span>Price impact</span><b id="cvImpact">0%</b><small id="cvImpactNote">—</small></div>
+            <div class="out"><span>Your avg price</span><b id="cvAvg">0</b><small id="cvAvgSol">0 SOL</small></div>
+            <div class="out"><span>Fee paid</span><b id="cvFeePaid">0 SOL</b><small id="cvFeeUsd">$0</small></div>
+            <div class="out"><span>Min tokens (slippage)</span><b id="cvMin">0</b><small>worst fill you'd accept</small></div>
+            <div class="out wide"><span>Value at graduation</span><b id="cvGradVal">0 SOL</b><small id="cvGradX">0x</small></div>
+          </div>
+          <div class="curve-chart">
+            <svg id="curveSvg" viewBox="0 0 600 220" preserveAspectRatio="none" aria-label="Bonding curve price chart"></svg>
+            <div class="chart-legend"><span><i style="background:var(--lime)"></i>curve price</span><span><i style="background:var(--pink)"></i>your entry</span><span><i style="background:var(--yellow)"></i>after your buy</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXIT ============ -->
+<section class="section tool-sec" id="exit" style="--acc:var(--pink)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="t-badge px">%</span>
+      <div>
+        <span class="kicker">TOOL 03 · PLAN</span>
+        <h2 class="px-h">EXIT PLANNER</h2>
+        <p>Set your take-profits and your stop before you buy. Edit the ladder and Insert totals up what each level pays out.</p>
+      </div>
+    </div>
+    <div class="two-col wide-right">
+      <div class="panel reveal">
+        <div class="panel-bar"><span class="leds"><i></i><i></i><i></i></span><span class="panel-title px">EXIT.CFG</span><span class="panel-status px">INPUT</span></div>
+        <div class="panel-body form-grid">
+          <label class="field"><span>Entry market cap (USD)</span><input type="number" id="exMc" min="0" step="100" value="10000" /></label>
+          <label class="field"><span>Position size (SOL)</span><input type="number" id="exSol" min="0" step="0.01" value="1" /></label>
+          <label class="field"><span>Stop-loss (% down)</span><input type="number" id="exStop" min="0" max="100" step="1" value="40" /></label>
+          <label class="field"><span>SOL price (USD)</span><input type="number" id="exSolUsd" min="0" step="0.01" placeholder="loading…" /></label>
+          <div class="span2">
+            <div class="ladder-head"><span class="px">TAKE-PROFIT LADDER</span><button type="button" class="mini" id="exAdd">+ add level</button></div>
+            <div id="ladder" class="ladder"></div>
+            <div class="chips" id="exPresets">
+              <button type="button" data-preset="safe">Safe: recover early</button>
+              <button type="button" data-preset="balanced">Balanced</button>
+              <button type="button" data-preset="moon">Moonbag max</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel reveal">
+        <div class="panel-bar"><span class="leds"><i></i><i></i><i></i></span><span class="panel-title px">PAYOUT TABLE</span><span class="panel-status px" id="exStatus">OK</span></div>
+        <div class="panel-body">
+          <div class="table-scroll">
+            <table class="tbl" id="exTable">
+              <thead><tr><th>Level</th><th>Target MC</th><th>Sell</th><th>SOL out</th><th>USD out</th><th>Realized</th></tr></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div class="out-grid three">
+            <div class="out"><span>Total if every level hits</span><b id="exTotal">0 SOL</b><small id="exTotalUsd">$0</small></div>
+            <div class="out"><span>Moonbag left</span><b id="exBag">0%</b><small id="exBagVal">rides free</small></div>
+            <div class="out"><span>Stop-loss exit</span><b id="exStopOut">0 SOL</b><small id="exStopMc">at $0 MC</small></div>
+          </div>
+          <div class="breakeven" id="exBreakeven"></div>
+          <p class="fine">These are straight-line estimates. Real fills depend on curve depth, slippage and who else is selling. Big sells on thin coins come in under these numbers.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LAUNCH KIT ============ -->
+<section class="section tool-sec alt" id="launch" style="--acc:var(--yellow)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="t-badge px">▶</span>
+      <div>
+        <span class="kicker">TOOL 04 · CREATORS</span>
+        <h2 class="px-h">LAUNCH KIT</h2>
+        <p>Check your name, ticker, image and dev buy against pump.fun's launch form before you deploy, and see your coin card the way traders will.</p>
+      </div>
+    </div>
+    <div class="two-col">
+      <div class="panel reveal">
+        <div class="panel-bar"><span class="leds"><i></i><i></i><i></i></span><span class="panel-title px">LAUNCH.CFG</span><span class="panel-status px" id="lkStatus">DRAFT</span></div>
+        <div class="panel-body form-grid">
+          <label class="field"><span>Coin name <em class="count" id="lkNameC">0/32</em></span><input type="text" id="lkName" maxlength="40" placeholder="Insert" /></label>
+          <label class="field"><span>Ticker <em class="count" id="lkTickC">0/10</em></span><input type="text" id="lkTick" maxlength="14" placeholder="INSERT" /></label>
+          <label class="field span2"><span>Description <em class="count" id="lkDescC">0</em></span><textarea id="lkDesc" rows="3" placeholder="What your coin is, in one or two lines."></textarea></label>
+          <label class="field span2 file-field"><span>Coin image (stays on your device)</span><input type="file" id="lkImg" accept="image/png,image/jpeg,image/gif,image/webp" /></label>
+          <label class="field"><span>X link</span><input type="url" id="lkX" placeholder="https://x.com/…" /></label>
+          <label class="field"><span>Website</span><input type="url" id="lkWeb" placeholder="https://…" /></label>
+          <label class="field"><span>Dev buy (SOL)</span><input type="number" id="lkDev" min="0" step="0.01" value="0" /></label>
+          <label class="field"><span>Telegram (optional)</span><input type="url" id="lkTg" placeholder="https://t.me/…" /></label>
+        </div>
+      </div>
+      <div class="panel reveal">
+        <div class="panel-bar"><span class="leds"><i></i><i></i><i></i></span><span class="panel-title px">PREVIEW</span><span class="panel-status px" id="lkScore">0/8</span></div>
+        <div class="panel-body">
+          <div class="pf-card">
+            <div class="pf-img" id="lkPrevImg"><span>IMG</span></div>
+            <div class="pf-info">
+              <div class="pf-by">created by you · just now</div>
+              <div class="pf-name"><b id="lkPrevName">Your Coin</b> <span id="lkPrevTick">($TICKER)</span></div>
+              <div class="pf-mc">market cap: <b id="lkPrevMc">—</b></div>
+              <p class="pf-desc" id="lkPrevDesc">Your description shows here.</p>
+            </div>
+          </div>
+          <div class="out-grid three">
+            <div class="out"><span>Dev buy gets</span><b id="lkDevTok">0</b><small id="lkDevPct">0% of supply</small></div>
+            <div class="out"><span>Start market cap</span><b id="lkStartMc">—</b><small id="lkStartMcSol">27.96 SOL</small></div>
+            <div class="out"><span>MC after dev buy</span><b id="lkAfterMc">—</b><small id="lkAfterMcSol">27.96 SOL</small></div>
+          </div>
+          <ul class="checks" id="lkChecks"></ul>
+          <div class="lk-actions">
+            <button class="btn btn-yellow" type="button" id="lkCopyPost">Copy launch post</button>
+            <a class="btn btn-ghost" href="https://pump.fun/create" target="_blank" rel="noopener">Open pump.fun create ↗</a>
+          </div>
+          <p class="fine">The limits here follow pump.fun's create form as of this build. Check the live form if anything changes. Your image is never uploaded anywhere from this page.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHECKLIST ============ -->
+<section class="section tool-sec" id="check" style="--acc:var(--orange)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="t-badge px">✓</span>
+      <div>
+        <span class="kicker">TOOL 05 · RESEARCH</span>
+        <h2 class="px-h">PRE-INSERT CHECKLIST</h2>
+        <p>What the scanner can't see on its own. Open the links, tick what checks out, and see whether you're cleared to insert.</p>
+      </div>
+    </div>
+    <div class="two-col wide-left">
+      <div class="panel reveal">
+        <div class="panel-bar"><span class="leds"><i></i><i></i><i></i></span><span class="panel-title px">CHECK.LST</span><span class="panel-status px" id="ckStatus">0/10</span></div>
+        <div class="panel-body">
+          <ul class="ck-list" id="ckList"></ul>
+          <button class="mini" id="ckReset" type="button">reset checklist</button>
+        </div>
+      </div>
+      <div class="panel sticky reveal">
+        <div class="panel-bar"><span class="leds"><i></i><i></i><i></i></span><span class="panel-title px">CLEARANCE</span><span class="panel-status px">LIVE</span></div>
+        <div class="panel-body center">
+          <div class="meter"><div class="meter-fill" id="ckFill"></div></div>
+          <div class="ck-grade px" id="ckGrade">—</div>
+          <p class="ck-msg" id="ckMsg">Tick the boxes that check out.</p>
+          <div class="ck-links" id="ckLinks"><p class="fine">Scan a coin first and its research links show up here.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WATCHLIST ============ -->
+<section class="section tool-sec alt" id="watch" style="--acc:var(--purple)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="t-badge px">★</span>
+      <div>
+        <span class="kicker">TOOL 06 · SAVE SLOT</span>
+        <h2 class="px-h">WATCHLIST</h2>
+        <p>Coins you've starred, saved in this browser only. Re-scan them to see how the score changed since you added them.</p>
+      </div>
+    </div>
+    <div class="panel reveal">
+      <div class="panel-bar"><span class="leds"><i></i><i></i><i></i></span><span class="panel-title px">SAVE.DAT</span><span class="panel-status px" id="wlStatus">0 SLOTS</span></div>
+      <div class="panel-body">
+        <div class="wl-tools">
+          <button class="btn btn-sm btn-purple" id="wlRescan" type="button">↻ Re-scan all</button>
+          <button class="mini" id="wlClear" type="button">clear watchlist</button>
+        </div>
+        <div class="table-scroll">
+          <table class="tbl" id="wlTable">
+            <thead><tr><th>Coin</th><th>CA</th><th>Score then</th><th>Score now</th><th>MC then</th><th>MC now</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="wl-empty" id="wlEmpty">
+          <div class="slots"><span>EMPTY</span><span>EMPTY</span><span>EMPTY</span></div>
+          <p>No save data yet. Scan a coin and hit <b>★ Watch</b>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TOKEN ============ -->
+<section class="section token" id="token" style="--acc:var(--yellow)">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="kicker">THE COIN</span>
+      <h2 class="px-h big">$INSERT</h2>
+      <p>A fair launch on pump.fun. Every tool on this site is free to use, and $INSERT is the coin behind the arcade.</p>
+    </div>
+    <div class="token-grid">
+      <div class="donut-wrap reveal">
+        <svg viewBox="0 0 200 200" class="donut" aria-label="Supply split">
+          <circle cx="100" cy="100" r="76" fill="none" stroke="#1d1446" stroke-width="30" />
+          <circle cx="100" cy="100" r="76" fill="none" stroke="var(--lime)" stroke-width="30" stroke-dasharray="378.6 477.5" transform="rotate(-90 100 100)" />
+          <circle cx="100" cy="100" r="76" fill="none" stroke="var(--pink)" stroke-width="30" stroke-dasharray="98.8 477.5" stroke-dashoffset="-378.6" transform="rotate(-90 100 100)" />
+        </svg>
+        <div class="donut-center"><b class="px">1B</b><span>TOTAL SUPPLY</span></div>
+        <div class="donut-legend">
+          <span><i style="background:var(--lime)"></i><b>79.31%</b> sold on the bonding curve</span>
+          <span><i style="background:var(--pink)"></i><b>20.69%</b> seeds the PumpSwap pool at graduation</span>
+        </div>
+      </div>
+      <div class="tok-facts reveal">
+        <div class="fact"><span>Ticker</span><b>$INSERT</b></div>
+        <div class="fact"><span>Chain</span><b>Solana</b></div>
+        <div class="fact"><span>Launch</span><b>pump.fun fair launch</b></div>
+        <div class="fact"><span>Total supply</span><b>1,000,000,000</b></div>
+        <div class="fact"><span>Decimals</span><b>6</b></div>
+        <div class="fact"><span>Presale / team</span><b>None / 0%</b></div>
+        <div class="fact"><span>Mint &amp; freeze</span><b>Revoked by pump.fun</b></div>
+        <div class="fact"><span>Graduation</span><b>~85 SOL → PumpSwap</b></div>
+        <div class="fact span2"><span>Contract address</span><a class="mono ca-link" id="caFact" href="https://x.com/UseInsertSol" target="_blank" rel="noopener">CA will be posted on X · @UseInsertSol ↗</a></div>
+      </div>
+    </div>
+
+    <div class="levels">
+      <div class="level done reveal" style="--acc:var(--lime)"><span class="lv px">LEVEL 1</span><h4>Insert Coin</h4><p>Launch on pump.fun. Scanner, curve calculator, exit planner, launch kit, checklist and watchlist go live.</p><em class="px">LIVE</em></div>
+      <div class="level reveal" style="--acc:var(--cyan)"><span class="lv px">LEVEL 2</span><h4>Combo Meter</h4><p>Score history charts for watchlist coins and side-by-side compare for up to four coins.</p><em class="px">NEXT</em></div>
+      <div class="level reveal" style="--acc:var(--pink)"><span class="lv px">LEVEL 3</span><h4>Insert Bot</h4><p>Reply to the bot on X with a CA and get a score card back.</p><em class="px">PLANNED</em></div>
+      <div class="level reveal" style="--acc:var(--yellow)"><span class="lv px">BOSS</span><h4>Holder Mode</h4><p>Holder-concentration and dev-wallet factors added to the Insert Score.</p><em class="px">PLANNED</em></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section alt" id="faq">
+  <div class="wrap narrow">
+    <div class="sec-head center reveal">
+      <span class="kicker">HELP SCREEN</span>
+      <h2 class="px-h">FAQ</h2>
+    </div>
+    <div class="faq reveal">
+      <details><summary>What is the Insert Score?</summary><p>It's a 0 to 100 rating built from eight factors in a coin's live pair data: buy pressure, momentum, activity, liquidity depth (or curve depth on pump.fun), volume turnover, socials, age, and whether you'd be buying a dip or a vertical candle. 70 and up reads <b>INSERT</b>, 45 to 69 reads <b>WAIT</b>, and under 45 reads <b>GAME OVER</b>.</p></details>
+      <details><summary>Where does the data come from?</summary><p>The DexScreener public API, called straight from your browser each time you scan. Insert has no backend and no database, and it never shows made-up numbers. If a coin hasn't been indexed yet, you'll see that instead of a fake reading.</p></details>
+      <details><summary>Do I need to connect my wallet?</summary><p>No. Insert never asks for a wallet, a signature or a seed phrase. If anything claiming to be Insert asks you for one, it's a scam.</p></details>
+      <details><summary>How accurate is the curve calculator?</summary><p>It uses pump.fun's constant-product curve: 30 virtual SOL and 1,073,000,191 virtual tokens at launch, 793.1M tokens sold on the curve, and graduation at about 85 SOL. Other buys landing in the same block will move your real fill, which is what the slippage setting is for.</p></details>
+      <details><summary>Why didn't my coin load?</summary><p>Brand-new coins can take a short while to show up on DexScreener. Also check that you pasted a Solana mint address (32 to 44 characters). pump.fun addresses usually end in "pump".</p></details>
+      <details><summary>Is anything saved?</summary><p>Your watchlist, recent scans, checklist and session stats live in your browser's local storage. Nothing is sent anywhere except the lookup request to DexScreener.</p></details>
+      <details><summary>Is this financial advice?</summary><p>No. Insert is a set of calculators and a heuristic. Memecoins are extremely risky and most go to zero. Only insert what you can afford to lose.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTINUE ============ -->
+<section class="continue">
+  <div class="wrap center">
+    <p class="px cont-t">CONTINUE?</p>
+    <div class="px cont-n" id="contN">9</div>
+    <div class="hero-actions center">
+      <a class="btn btn-xl btn-pink" href="#scan"><span class="px">▶ INSERT COIN</span></a>
+      <a class="btn btn-xl btn-ghost js-buy" href="https://pump.fun" target="_blank" rel="noopener"><span class="px">BUY $INSERT</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a class="brand" href="#top"><img src="logo.svg" alt="" width="56" height="56" /><span class="brand-word big">INSERT</span></a>
+        <p>A free pump.fun entry toolkit. Scan the board, read the curve and plan the exit before you insert a single coin.</p>
+        <div class="foot-social">
+          <a class="icon-btn js-x" href="https://x.com/UseInsertSol" target="_blank" rel="noopener" aria-label="X"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M18.9 2H22l-6.8 7.8L23 22h-6.2l-4.8-6.3L6.4 22H3.3l7.3-8.3L1 2h6.3l4.4 5.8L18.9 2Zm-1.1 18h1.7L6.3 3.9H4.5L17.8 20Z"/></svg></a>
+          <a class="btn btn-buy js-buy" href="https://pump.fun" target="_blank" rel="noopener"><span class="px">BUY</span> $INSERT</a>
+        </div>
+      </div>
+      <div class="foot-col"><h5 class="px">TOOLS</h5><a href="#scan">Entry Scanner</a><a href="#curve">Curve Calculator</a><a href="#exit">Exit Planner</a><a href="#launch">Launch Kit</a><a href="#check">Checklist</a><a href="#watch">Watchlist</a></div>
+      <div class="foot-col"><h5 class="px">$INSERT</h5><a class="js-buy" href="https://pump.fun" target="_blank" rel="noopener">Buy on pump.fun</a><a href="#token">Token details</a><a href="#token">Roadmap</a><a class="js-x" href="https://x.com/UseInsertSol" target="_blank" rel="noopener">X / Twitter</a></div>
+      <div class="foot-col"><h5 class="px">HELP</h5><a href="#faq">FAQ</a><a href="https://dexscreener.com" target="_blank" rel="noopener">DexScreener ↗</a><a href="https://rugcheck.xyz" target="_blank" rel="noopener">RugCheck ↗</a><a href="https://pump.fun" target="_blank" rel="noopener">pump.fun ↗</a></div>
+    </div>
+    <p class="disclaimer">$INSERT is a memecoin with no intrinsic value and no expectation of financial return. Nothing on this site is financial advice. Insert Scores are automated heuristics from public data and can be wrong. Trading memecoins carries a high risk of total loss. Always do your own research.</p>
+    <div class="foot-bottom"><span class="px">© <span id="yr"></span> INSERT</span><span>No wallet connect · No tracking · Live data only</span><span class="px">GAME OVER IS OPTIONAL</span></div>
+  </div>
+</footer>
+
+<div class="toast px" id="toast" role="status" aria-live="polite"></div>
+<canvas id="shareCanvas" width="1200" height="630" hidden></canvas>
+<script src="scene.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
